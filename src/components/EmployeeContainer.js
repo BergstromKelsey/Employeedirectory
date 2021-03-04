@@ -5,7 +5,6 @@
    import Col from "./Col";
    import Card from "./Card";
    import SearchForm from "./SearchForm";
-   import EmployeeDetail from "./EmployeeDetail";
    import API from "../utils/API";
    
    
@@ -98,9 +97,9 @@
                 
                   <span
                     className={this.getHeaderClassName("first")}
-                    onClick={() => {
-                      this.handleSortDirectionChange("first");
-                    }}
+                    // onClick={() => {
+                    //   this.handleSortDirectionChange("first");
+                    // }}
                   >
                     First Name
                   </span>
@@ -108,7 +107,7 @@
                 <th scope="col">
                   <span
                     className={this.getHeaderClassName("last")}
-                    onClick={() => this.handleSortDirectionChange("last")}
+                    
                   >
                     Last Name 
                   </span>
@@ -116,7 +115,7 @@
                 <th scope="col">
                   <span
                     className={this.getHeaderClassName("email")}
-                    onClick={() => this.handleSortDirectionChange("email")}
+                   
                   >
                     Email
                   </span>
@@ -124,7 +123,7 @@
                 <th scope="col">
                   <span
                     className={this.getHeaderClassName("dob")}
-                    onClick={() => this.handleSortDirectionChange("dob")}
+                    
                   >
                     Date of Birth
                   </span>
