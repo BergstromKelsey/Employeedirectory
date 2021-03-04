@@ -25,7 +25,7 @@
              email: employee.email,
              dob: employee.dob.date,
              location: employee.location.city,
-             image: employee.image
+             image: employee.picture.medium
            }
          });
          this.setState({ employees: employeeArray})
