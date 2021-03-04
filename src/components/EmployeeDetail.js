@@ -16,11 +16,8 @@ const styles = {
 
 function EmployeeDetail(props) {
   return (
-    <div style={styles.empdetails} className="text-center">
+    <div style={styles.empdetails} className="table">
 
-      Name {props.name}
-      Email {props.location}
-      Location {props.email}
     </div>
   );
 }
