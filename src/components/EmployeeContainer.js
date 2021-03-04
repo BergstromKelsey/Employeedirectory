@@ -67,6 +67,7 @@
             <td>{employee.firstname}</td>
             <td>{employee.lastname}</td>
             <td>{employee.email}</td>
+            <td>{employee.location}</td>
             <td>{new Date(employee.dob).toDateString()}</td>
           </tr>
         );
@@ -155,6 +156,14 @@
                       
                      >
                        Email
+                     </span>
+                   </th>
+                   <th scope="col">
+                     <span
+                       className={this.getHeaderClassName("dob")}
+                       
+                     >
+                         City
                      </span>
                    </th>
                    <th scope="col">
