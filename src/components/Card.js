@@ -20,8 +20,12 @@ function Card(props) {
       <div className="card-header">
         <h2>EMPLOYEE TRACKER</h2>
       </div>
+
+      {/* <div className="card-body">{props.children}</div> */}
+    
      </div>
   );
 }
 
 export default Card;
+

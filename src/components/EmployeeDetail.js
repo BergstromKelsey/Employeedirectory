@@ -5,23 +5,24 @@ const styles = {
 
   empdetails: {
     background: "#5F9EA0",
-    fontSize: "0px",
+    fontSize: "1rem",
     color: "white",
-    padding: "0px"
+    padding: "0px",
+    
     
   }}
 
 
 
-function MovieDetail(props) {
+function EmployeeDetail(props) {
   return (
     <div style={styles.empdetails} className="text-center">
 
-      <h2>Name {props.name}
+      Name {props.name}
       Email {props.location}
-      Location {props.email}</h2>
+      Location {props.email}
     </div>
   );
 }
 
-export default MovieDetail;
+export default EmployeeDetail;

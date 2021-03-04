@@ -10,64 +10,96 @@ import API from "../utils/API";
 
 class EmployeeContainer extends Component {
   state = {
-    result: {},
+    results: {},
     search: ""
   };
 
-  // When this component mounts, search for the movie "The Matrix"
+ 
   componentDidMount() {
-    this.searchEmployees("The Matrix");
+    API.searchEmployees()
+    .then (res =>{
+      const employeeArray = res.data.results.map (employee => {
+        return{
+          firstname:employee.name.first,
+          lastname: employee.name.last,
+          email: employee.email,
+          dob: employee.dob.date,
+          location: employee.location.city,
+          image: employee.picture.medium
+        }
+      });
+      this.setState({ results: employeeArray})
+
+    })
+    .catch(err => console.log(err));
   }
 
-  searchEmployees = query => {
-    API.search(query)
-      .then(res => this.setState({ result: res.data }))
-      .catch(err => console.log(err));
-  };
+
+
+
 
   handleInputChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
-    this.setState({
-      [name]: value
-    });
-  };
+    this.setState({ search: event.target.value });
+    }
+  
+   
+          
+          
+      
+          
 
-  // When the form is submitted, search the OMDB API for the value of `this.state.search`
+
+  // const value = event.target.value;
+  // const name = event.target.name;
+  // this.setState({
+  //   [name]: value
   handleFormSubmit = event => {
-    event.preventDefault();
-    this.searchEmployees(this.state.search);
-  };
+  event.preventDefault();
+  const value = event.target.value;
+  const name = event.target.name;
+  this.setState({
+
+    [name]: value
+
+  });
+  }
 
   render() {
     return (
-        
-      <Container>
-        
-            <Card>
-            </Card>
-            
-        <Row>
-         
+       
+      
+        <Container>
+              <Row>
+              
         <Col size="md-12">
-           <SearchForm
+            <Card></Card>
+        </Col>
+       
+        </Row>
+     <center>
+        <Col size="md-6">
+           <SearchForm 
              value={this.state.search}
              handleInputChange={this.handleInputChange}
              handleFormSubmit={this.handleFormSubmit}
            />
          </Col>
-      
-          <Col size="md-12">
         
-            <EmployeeDetail
-                  name={this.state.result.Name}
-                 
-                />
+         <Row>
+          <Col size="md-12">
+            
+              <EmployeeDetail
+                name={this.state.results.name}
+                // location={this.state.result.results.location}
+                // email={this.state.result.results.email}
+              
+              />
             
           </Col>
-      
-        </Row>
        
+          
+        </Row>
+       </center>
       </Container>
     );
   }

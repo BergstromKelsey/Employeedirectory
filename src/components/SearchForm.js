@@ -4,18 +4,21 @@ import React from "react";
 const styles = {
 
   input: {
-    background: "#5F9EA0",
+    marginTop:"30px",
    alignItems:"center",
     fontSize: "1.6rem",
     color: "white",
-    padding: "0 20px"
+   
+  
 
   },
   button: {
+    marginTop:"-60px",
     alignItems:"center",
-    fontSize: "1.6rem",
+    fontSize:"1rem",
     color: "white",
-    padding: "0 20px",
+    width:"200px",
+  
     background:"#000000",
   }
 
@@ -29,8 +32,6 @@ function SearchForm(props) {
     
     <form>
 
-
-       
       <div style= {styles.input} className="form-group">
         <input
           onChange={props.handleInputChange}
