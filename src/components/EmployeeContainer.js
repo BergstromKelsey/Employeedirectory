@@ -35,19 +35,21 @@ class EmployeeContainer extends Component {
   }
 
   handleInputChange = event => {
+    const name = event.target.name;
     const value = event.target.value;
-    const firstname = event.target.firstname;
-    const lastname = event.target.lastname;
     this.setState({
-      [firstname]: value,
-      [lastname]: value
+      [name]: value
     });
   };
-
   handleFormSubmit = event => {
     event.preventDefault();
-    this.searchEmployees(this.state.search);
+    this.searchMovies(this.state.search);
   };
+
+
+
+
+
 
   filteredEmployees() {
     const search = this.state.search.toLowerCase();
@@ -59,7 +61,7 @@ class EmployeeContainer extends Component {
     });
   }
 
-  //function to render a employees
+
   renderEmployees = () => {
     return this.filteredEmployees()
       .sort(this.sortEmployees)
@@ -82,6 +84,9 @@ class EmployeeContainer extends Component {
 
   render() {
     return (
+      
+    
+    
       <center>
         <Container>
           <Row>
@@ -91,6 +96,9 @@ class EmployeeContainer extends Component {
           </Row>
           <Col size="md-6">
             <SearchForm
+            value={this.state.search}
+            handleInputChange={this.handleInputChange}
+            handleFormSubmit={this.handleFormSubmit}
             />
           </Col>
 
@@ -132,6 +140,7 @@ class EmployeeContainer extends Component {
             </table>
           </div>
         </Container>
+
 
       </center>
 
