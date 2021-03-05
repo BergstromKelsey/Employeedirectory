@@ -1,49 +1,54 @@
 
-   import React, { Component } from "react";
-   import Container from "./Container";
-   import Row from "./Row";
-   import Col from "./Col";
-   import Card from "./Card";
-   import SearchForm from "./SearchForm";
-   import API from "../utils/API";
-   
-   
-   class EmployeeContainer extends Component {
-     state = {
-       employees: [],
-       search: ""
-     };
-   
-    
-     componentDidMount() {
-       API.searchEmployees()
-       .then (res =>{
-         const employeeArray = res.data.results.map (employee => {
-           return{
-             firstname:employee.name.first,
-             lastname: employee.name.last,
-             email: employee.email,
-             dob: employee.dob.date,
-             location: employee.location.city,
-             image: employee.picture.medium
-           }
-         });
-         this.setState({ employees: employeeArray})
-   
-       })
-       .catch(err => console.log(err));
-     }
-   
- 
+import React, { Component } from "react";
+import Container from "./Container";
+import Row from "./Row";
+import Col from "./Col";
+import Card from "./Card";
+import SearchForm from "./SearchForm";
+import API from "../utils/API";
 
 
-
-     //function to update search state each time the user types a character
-  handleSearchChange = e => {
-    this.setState({ search: e.target.value });
+class EmployeeContainer extends Component {
+  state = {
+    employees: [],
+    search: ""
   };
 
-  //function to filter list to only show first/last that matches search
+
+  componentDidMount() {
+    API.searchEmployees()
+      .then(res => {
+        const employeeArray = res.data.results.map(employee => {
+          return {
+            firstname: employee.name.first,
+            lastname: employee.name.last,
+            email: employee.email,
+            dob: employee.dob.date,
+            location: employee.location.city,
+            image: employee.picture.medium
+          }
+        });
+        this.setState({ employees: employeeArray })
+
+      })
+      .catch(err => console.log(err));
+  }
+
+  handleInputChange = event => {
+    const value = event.target.value;
+    const firstname = event.target.firstname;
+    const lastname = event.target.lastname;
+    this.setState({
+      [firstname]: value,
+      [lastname]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.searchEmployees(this.state.search);
+  };
+
   filteredEmployees() {
     const search = this.state.search.toLowerCase();
     return this.state.employees.filter(employee => {
@@ -54,7 +59,7 @@
     });
   }
 
-  //function to render a table of users
+  //function to render a employees
   renderEmployees = () => {
     return this.filteredEmployees()
       .sort(this.sortEmployees)
@@ -74,124 +79,64 @@
       });
   };
 
-  //depending on which column was clicked, add or remove the arrow
-  //icon specifying the sort direction
-  getHeaderClassName = col => {
-    return this.state.col === col
-      ? `clickable ${this.state.sortDirection}`
-      : `clickable`;
-  };
 
-  //depending on which column was clicked, set the sort direction to
-  //the opposite of what it was.
-  handleSortDirectionChange = col => {
-    this.state.col === col && this.state.sortDirection === "ascending"
-      ? this.setState({ sortDirection: "descending", col: col })
-      : this.setState({ sortDirection: "ascending", col: col });
-  };
+  render() {
+    return (
+      <center>
+        <Container>
+          <Row>
+            <Col size="md-12">
+              <Card></Card>
+            </Col>
+          </Row>
+          <Col size="md-6">
+            <SearchForm
+            />
+          </Col>
 
-  //function to return 1 or -1 to sort function depending on sort direction
-  sortEmployees = (a, b) => {
-    if (a[this.state.col] < b[this.state.col]) {
-      return this.state.sortDirection === "ascending" ? -1 : 1;
-    } else if (a[this.state.col] > b[this.state.col]) {
-      return this.state.sortDirection === "ascending" ? 1 : -1;
-    }
-    return 0;
-  };
+          <div className="table m-3">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Photo</th>
+                  <th scope="col">
 
-
-
-
-   
-     render() {
-       return (
-        
-             <center> 
-           <Container>
-           
-                    <Row>
-                    
-              <Col size="md-12">
-                  <Card></Card>
-              </Col>
-             
-              </Row>
-           
-              <Col size="md-6">
-                 <SearchForm 
-                 />
-               </Col>
-         
-
-
-               <div className="table m-3">
-             <table className="table">
-               <thead>
-                 <tr>
-                 <th scope="col">Photo</th>
-                   <th scope="col">
-                   
-                 
-                     <span
-                       className={this.getHeaderClassName("First")}
-                      //  onClick={() => {
-                      //    this.handleSortDirectionChange("First Name");
-                      //  }}
-                     >
-                       First Name
+                    <span>
+                      First Name
                      </span>
-                   </th>
-                   <th scope="col">
-                     <span
-                       className={this.getHeaderClassName("Last")}
-                       
-                     >
-                       Last Name 
+                  </th>
+                  <th scope="col">
+                    <span>
+                      Last Name
                      </span>
-                   </th>
-                   <th scope="col">
-                     <span
-                       className={this.getHeaderClassName("email")}
-                      
-                     >
-                       Email
+                  </th>
+                  <th scope="col">
+                    <span>
+                      Email
                      </span>
-                   </th>
-                   <th scope="col">
-                     <span
-                       className={this.getHeaderClassName("dob")}
-                       
-                     >
-                         City
+                 </th>
+                 <th scope="col">
+                    <span>
+                      City
                      </span>
-                   </th>
-                   <th scope="col">
-                     <span
-                       className={this.getHeaderClassName("dob")}
-                       
-                     >
-                       Date of Birth
+                  </th>
+                  <th scope="col">
+                    <span>
+                      Date of Birth
                      </span>
-                   </th>
-                  </tr> 
-               </thead>
-               <tbody>{this.renderEmployees()}</tbody>
-          
-             </table>
-             </div>
-           </Container> 
-           
-           </center>
-           
-           
-          )}    
-                     }
-                     
-                 
-   
-   
-   
-              
-       
-                     export default EmployeeContainer;
+                  </th>
+                </tr>
+              </thead>
+              <tbody>{this.renderEmployees()}</tbody>
+
+            </table>
+          </div>
+        </Container>
+
+      </center>
+
+
+    )
+  }
+}
+export default EmployeeContainer;
