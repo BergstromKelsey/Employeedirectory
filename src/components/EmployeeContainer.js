@@ -7,14 +7,14 @@ import Card from "./Card";
 import SearchForm from "./SearchForm";
 import API from "../utils/API";
 
-
+//set state
 class EmployeeContainer extends Component {
   state = {
     employees: [],
     search: ""
   };
 
-
+//Retriever info from the API, in an array form, then set to state
   componentDidMount() {
     API.searchEmployees()
       .then(res => {
@@ -34,6 +34,7 @@ class EmployeeContainer extends Component {
       .catch(err => console.log(err));
   }
 
+//narrow search results to what the user searches
   handleInputChange = event => {
     const name = event.target.name;
     const value = event.target.value;
@@ -43,14 +44,11 @@ class EmployeeContainer extends Component {
   };
   handleFormSubmit = event => {
     event.preventDefault();
-    this.searchMovies(this.state.search);
+    this.searchEmployees(this.state.search);
   };
 
 
-
-
-
-
+//filter through all the employees to match user input 
   filteredEmployees() {
     const search = this.state.search.toLowerCase();
     return this.state.employees.filter(employee => {
@@ -61,7 +59,7 @@ class EmployeeContainer extends Component {
     });
   }
 
-
+//render all employee information from the API
   renderEmployees = () => {
     return this.filteredEmployees()
       .sort(this.sortEmployees)
@@ -80,12 +78,8 @@ class EmployeeContainer extends Component {
         );
       });
   };
-
-
   render() {
     return (
-      
-    
     
       <center>
         <Container>
@@ -94,6 +88,8 @@ class EmployeeContainer extends Component {
               <Card></Card>
             </Col>
           </Row>
+
+          {/*THIS IS WHAT WAS MISSING FOR THE SEARCH TO WORKKKKKKKKKK! */}
           <Col size="md-6">
             <SearchForm
             value={this.state.search}
@@ -135,6 +131,7 @@ class EmployeeContainer extends Component {
                   </th>
                 </tr>
               </thead>
+              {/* display all employees and there info on body */}
               <tbody>{this.renderEmployees()}</tbody>
 
             </table>

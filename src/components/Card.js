@@ -1,5 +1,6 @@
 import React from "react";
 
+//styling and functionality for the header
 
 const styles = {
 

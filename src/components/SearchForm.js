@@ -1,5 +1,6 @@
 import React from "react";
 
+//funcationality and inline styling for the input box and buttons
 
 const styles = {
 
@@ -8,9 +9,7 @@ const styles = {
    alignItems:"center",
     fontSize: "1.6rem",
     color: "white",
-   
   
-
   },
   button: {
     marginTop:"-60px",
@@ -25,8 +24,6 @@ const styles = {
     
   }
 
-
-
 function SearchForm(props) {
   return (
     
@@ -39,6 +36,7 @@ function SearchForm(props) {
           value={props.value}
           name="search"
           type="text"
+          placeholder="Search by First or Last Name"
           className="form-control"
           
           id="search"
