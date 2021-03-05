@@ -18,7 +18,9 @@ Employee Directory Utlizes the following:
 - Axios
 
 # Usage 
-The application can be accessed via Heroku:
+The application can be accessed via Heroku: 
+
+https://employeedirt.herokuapp.com/
 
 
 
